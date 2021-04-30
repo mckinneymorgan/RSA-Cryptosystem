@@ -2,7 +2,16 @@
 
 # Modular exponentiation
 def modular_exp(x, y, m):
-    return pow(x, y, m)
+    print("MODULAR_EXP")
+    z = 1
+    y_str = str(y)
+    for i in y-1:
+        z = (z ** 2) % m
+        if y_str[i] == 1:
+            z = (z * x) % m
+    print("Actual:", z)
+    print("Expected:", pow(x, y, m))
+    return z
 
 
 # Setup keys
