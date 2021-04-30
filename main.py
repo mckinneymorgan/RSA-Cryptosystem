@@ -25,6 +25,7 @@ f.close()
 message = open("message.txt", "r").read()
 key_public = open("public_key.txt", "r").read()
 ciphertext = ""
+print("Message:", message)
 print("Ciphertext:", ciphertext)
 f = open("ciphertext.txt", "w")
 f.write(ciphertext)
