@@ -5,10 +5,9 @@ from random import randrange
 
 # Modular exponentiation
 def modular_exp(x, y, m):
-    print("MODULAR_EXP")
     z = 1
     y_str = str(y)
-    for i in y-1:
+    for i in range(y-1):
         z = (z ** 2) % m
         if y_str[i] == 1:
             z = (z * x) % m
@@ -17,9 +16,16 @@ def modular_exp(x, y, m):
     return z
 
 
-# Miller-Rabin primality test
+# Fermat primality test
 def primality_test(x):
-    return x
+    prime = True
+    for i in range(100):
+        # Choose random integer a with 1 < a < x
+        a = randrange(1, x)
+        # If a^(n - x) != 1 (mod x), x is composite
+        if modular_exp(a, x - 1, x) != 1:
+            prime = False
+    return prime
 
 
 # Large prime generator
@@ -29,7 +35,7 @@ def large_prime(y):
     while not prime:
         # Pick a random, large, and odd number
         large_int = randrange(2 ** (y - 1), 2 ** y)
-        if large_int % 2 == 0:  # If number is even
+        if large_int % 2 == 0:  # If number is even, make odd
             large_int += 1
         if primality_test(large_int):
             prime_int = large_int
@@ -45,7 +51,7 @@ n = 0
 e = 0
 # p and q must be 100 decimal digits each, with a difference of at least 10^95
 p = large_prime(334)  # 2^333 has 100 digits
-q = large_prime(1000)  # 2^999 has 301 digits
+q = large_prime(667)  # 2^666 has 200 digits
 n = p * q
 key_public = [str(n), str(e)]
 print("Public Key: (n, e) =", *key_public)
