@@ -14,10 +14,6 @@ def mod_exp(x, y, m):
         if y % 2 == 1:
             z = (z * x) % m
             y -= 1
-    if (z % m) == z_exp:
-        print("True")
-    else:
-        print("False")
     return z % m
 
 
@@ -49,18 +45,28 @@ def large_prime(y):
     return prime_int
 
 
+# Euclidean Algorithm
+def ea(a, b):
+    if b == 0:
+        return a
+    return ea(b, a % b)
+
+
 # Setup keys
 # Compute public key
 message = open("message.txt", "r").read()
 message = int(message)
-n = 0
 e = 65537  # Typically a good choice (2^16 + 1)
 # p and q must be 100 decimal digits each, with a difference of at least 10^95
 p = large_prime(334)  # 2^333 has 100 digits
 q = large_prime(667)  # 2^666 has 200 digits
 n = p * q
 # e must be relatively prime to (p - 1)(q - 1)
-
+relatively_prime = False
+product = (p - 1) * (q - 1)
+while not relatively_prime:
+    if ea(e, product) == 1:
+        relatively_prime = True
 key_public = [str(n), str(e)]
 print("Public Key: (n, e) =", *key_public)
 f = open("public_key.txt", "w")
