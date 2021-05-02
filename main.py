@@ -119,7 +119,7 @@ f.close()
 
 # Decryption
 # Note: We already have the public key from previous module
-ciphertext = open("message.txt", "r").read()
+ciphertext = open("ciphertext.txt", "r").read()
 key_private = open("private_key.txt", "r").read()
 decrypted_message = str(mod_exp(int(ciphertext), int(key_private), int(key_public[0])))
 print("Decrypted message:", decrypted_message)
